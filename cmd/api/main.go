@@ -7,21 +7,16 @@ import (
 	"os"
 )
 
-func HealthHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte(`{"status":"ok"}`))
-}
+type application struct{}
 
 func main() {
 	addr := flag.String("Addr", ":8080", "network port")
 	flag.Parse()
 
-	mux := http.NewServeMux()
-
-	mux.HandleFunc("/health", HealthHandler)
+	app := &application{}
 
 	fmt.Println("Server starting. Listening on port", *addr)
-	err := http.ListenAndServe(*addr, mux)
+	err := http.ListenAndServe(*addr, app.routes())
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(1)
