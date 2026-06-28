@@ -12,7 +12,7 @@ type application struct {
 }
 
 func main() {
-	addr := flag.String("Addr", ":8080", "network port")
+	addr := flag.String("Addr", ":3001", "network port")
 	flag.Parse()
 
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
